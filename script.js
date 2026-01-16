@@ -21,6 +21,8 @@
 
     bar.style.height = inner.scrollHeight + "px";
     openCard = card;
+
+    document.body.classList.add("greenHover");
   };
 
   const close = (card) => {
@@ -29,6 +31,8 @@
 
     bar.style.height = "0px";
     if (openCard === card) openCard = null;
+
+    document.body.classList.remove("greenHover");
   };
 
   cards.forEach((card) => {

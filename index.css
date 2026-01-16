@@ -104,10 +104,11 @@ h1 {
   margin:0 14px 12px;
   border-radius:12px;
   border:1px solid rgba(0,0,0,0.10);
-  height:220px;
+  height:140x;
   object-fit:cover;
   object-position:center;
 }
+
 
 .infoBar {
   margin-top:0;
@@ -132,6 +133,13 @@ h1 {
   font-size: 14px;
   line-height: 1.35;
   opacity: 0.92;
+}
+body{
+  transition: background 200ms ease;
+}
+
+body.greenHover{
+  background: radial-gradient(circle at 20% 20%, #eaffea, #bff2c8 55%, #8fe0a0);
 }
 }
 
