@@ -17,8 +17,6 @@
     const { bar, inner } = parts(card);
     if (!bar || !inner) return;
 
-    if (openCard && openCard !== card) close(openCard);
-
     cardsWrap.classList.add("focus");
     cards.forEach((c) => c.classList.remove("active"));
     card.classList.add("active");
@@ -27,24 +25,22 @@
     openCard = card;
   };
 
-  const close = (card) => {
-    const { bar } = parts(card);
-    if (bar) bar.style.height = "0px";
-
-    card.classList.remove("active");
+  const closeAll = () => {
     cardsWrap.classList.remove("focus");
+    cards.forEach((c) => c.classList.remove("active"));
+    cards.forEach((c) => {
+      const { bar } = parts(c);
+      if (bar) bar.style.height = "0px";
+    });
     openCard = null;
   };
 
   cards.forEach((card) => {
     setAccent(card);
-
     card.addEventListener("mouseenter", () => open(card));
-    card.addEventListener("mouseleave", () => close(card));
-
-    card.addEventListener("focusin", () => open(card));
-    card.addEventListener("focusout", () => close(card));
   });
+
+  cardsWrap.addEventListener("mouseleave", closeAll);
 
   window.addEventListener("resize", () => {
     if (!openCard) return;

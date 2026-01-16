@@ -143,26 +143,23 @@ body.greenHover{
 }
 }
 .cards.focus .card{
-  opacity:0;
-  transform:scale(0.94);
-  filter:blur(6px);
-  pointer-events:none;
-  transition:opacity 180ms ease,transform 180ms ease,filter 180ms ease;
+  display:none;
 }
 
 .cards.focus .card.active{
-  opacity:1;
-  transform:scale(1.03);
-  filter:none;
-  pointer-events:auto;
+  display:block;
+  width:520px;
+  transform:scale(1.05);
 }
 
 .cards.focus .card.active::before{
-  padding:8px;
+  padding:12px;
   opacity:1;
 }
 
-.cards.focus .card.active:hover{
-  transform:scale(1.04);
+@media (max-width:600px){
+  .cards.focus .card.active{
+    width:92%;
+  }
 }
 
