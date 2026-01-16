@@ -148,18 +148,12 @@ body.greenHover{
 
 .cards.focus .card.active{
   display:block;
-  width:520px;
-  transform:scale(1.05);
+  width:560px;
+  margin:0 auto;
 }
 
-.cards.focus .card.active::before{
-  padding:12px;
-  opacity:1;
+.cards.focus .card.active .images{
+  height:320px;
 }
 
-@media (max-width:600px){
-  .cards.focus .card.active{
-    width:92%;
-  }
-}
 

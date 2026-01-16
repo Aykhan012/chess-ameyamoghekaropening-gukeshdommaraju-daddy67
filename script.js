@@ -1,51 +1,60 @@
 (() => {
-  const cardsWrap = document.querySelector(".cards");
+  const wrap = document.getElementById("cardsWrap");
   const cards = Array.from(document.querySelectorAll(".card"));
-  let openCard = null;
+  let active = null;
 
   const setAccent = (card) => {
     const accent = card.getAttribute("data-accent") || "120,120,255";
     card.style.setProperty("--accent", accent);
   };
 
-  const parts = (card) => ({
-    bar: card.querySelector(".infoBar"),
-    inner: card.querySelector(".infoInner"),
-  });
-
-  const open = (card) => {
-    const { bar, inner } = parts(card);
+  const openBar = (card) => {
+    const bar = card.querySelector(".infoBar");
+    const inner = card.querySelector(".infoInner");
     if (!bar || !inner) return;
+    bar.style.height = inner.scrollHeight + "px";
+  };
 
-    cardsWrap.classList.add("focus");
+  const closeBar = (card) => {
+    const bar = card.querySelector(".infoBar");
+    if (!bar) return;
+    bar.style.height = "0px";
+  };
+
+  const focusCard = (card) => {
+    if (!wrap) return;
+
+    wrap.classList.add("focus");
     cards.forEach((c) => c.classList.remove("active"));
     card.classList.add("active");
 
-    bar.style.height = inner.scrollHeight + "px";
-    openCard = card;
+    if (active && active !== card) closeBar(active);
+    openBar(card);
+    active = card;
   };
 
-  const closeAll = () => {
-    cardsWrap.classList.remove("focus");
+  const clearFocus = () => {
+    if (!wrap) return;
+
+    wrap.classList.remove("focus");
     cards.forEach((c) => c.classList.remove("active"));
-    cards.forEach((c) => {
-      const { bar } = parts(c);
-      if (bar) bar.style.height = "0px";
-    });
-    openCard = null;
+    cards.forEach((c) => closeBar(c));
+    active = null;
   };
 
   cards.forEach((card) => {
     setAccent(card);
-    card.addEventListener("mouseenter", () => open(card));
+
+    card.addEventListener("mouseenter", () => focusCard(card));
+    card.addEventListener("focusin", () => focusCard(card));
   });
 
-  cardsWrap.addEventListener("mouseleave", closeAll);
+  if (wrap) {
+    wrap.addEventListener("mouseleave", clearFocus);
+  }
 
   window.addEventListener("resize", () => {
-    if (!openCard) return;
-    const { bar, inner } = parts(openCard);
-    if (!bar || !inner) return;
-    bar.style.height = inner.scrollHeight + "px";
+    if (!active) return;
+    openBar(active);
   });
 })();
