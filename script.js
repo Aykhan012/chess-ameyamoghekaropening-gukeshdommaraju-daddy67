@@ -1,4 +1,5 @@
 (() => {
+  const cardsWrap = document.querySelector(".cards");
   const cards = Array.from(document.querySelectorAll(".card"));
   let openCard = null;
 
@@ -7,32 +8,32 @@
     card.style.setProperty("--accent", accent);
   };
 
-  const getParts = (card) => {
-    const bar = card.querySelector(".infoBar");
-    const inner = card.querySelector(".infoInner");
-    return { bar, inner };
-  };
+  const parts = (card) => ({
+    bar: card.querySelector(".infoBar"),
+    inner: card.querySelector(".infoInner"),
+  });
 
   const open = (card) => {
-    const { bar, inner } = getParts(card);
+    const { bar, inner } = parts(card);
     if (!bar || !inner) return;
 
     if (openCard && openCard !== card) close(openCard);
 
+    cardsWrap.classList.add("focus");
+    cards.forEach((c) => c.classList.remove("active"));
+    card.classList.add("active");
+
     bar.style.height = inner.scrollHeight + "px";
     openCard = card;
-
-    document.body.classList.add("greenHover");
   };
 
   const close = (card) => {
-    const { bar } = getParts(card);
-    if (!bar) return;
+    const { bar } = parts(card);
+    if (bar) bar.style.height = "0px";
 
-    bar.style.height = "0px";
-    if (openCard === card) openCard = null;
-
-    document.body.classList.remove("greenHover");
+    card.classList.remove("active");
+    cardsWrap.classList.remove("focus");
+    openCard = null;
   };
 
   cards.forEach((card) => {
@@ -47,7 +48,7 @@
 
   window.addEventListener("resize", () => {
     if (!openCard) return;
-    const { bar, inner } = getParts(openCard);
+    const { bar, inner } = parts(openCard);
     if (!bar || !inner) return;
     bar.style.height = inner.scrollHeight + "px";
   });

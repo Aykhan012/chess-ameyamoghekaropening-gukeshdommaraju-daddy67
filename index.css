@@ -81,9 +81,9 @@ h1 {
   pointer-events: none;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 45px rgba(0,0,0,0.14);
+.card:hover::before{
+  opacity:1;
+  padding:6px;
 }
 
 .card:hover::before {
@@ -141,5 +141,28 @@ body{
 body.greenHover{
   background: radial-gradient(circle at 20% 20%, #eaffea, #bff2c8 55%, #8fe0a0);
 }
+}
+.cards.focus .card{
+  opacity:0;
+  transform:scale(0.94);
+  filter:blur(6px);
+  pointer-events:none;
+  transition:opacity 180ms ease,transform 180ms ease,filter 180ms ease;
+}
+
+.cards.focus .card.active{
+  opacity:1;
+  transform:scale(1.03);
+  filter:none;
+  pointer-events:auto;
+}
+
+.cards.focus .card.active::before{
+  padding:8px;
+  opacity:1;
+}
+
+.cards.focus .card.active:hover{
+  transform:scale(1.04);
 }
 
