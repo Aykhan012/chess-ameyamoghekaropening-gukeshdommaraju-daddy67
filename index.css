@@ -104,7 +104,7 @@ h1 {
   margin:0 14px 12px;
   border-radius:12px;
   border:1px solid rgba(0,0,0,0.10);
-  height:140x;
+  height:140px;
   object-fit:cover;
   object-position:center;
 }
@@ -148,12 +148,22 @@ body.greenHover{
 
 .cards.focus .card.active{
   display:block;
-  width:560px;
-  margin:0 auto;
+  width:520px;
+  transform:scale(1.05);
 }
 
 .cards.focus .card.active .images{
   height:320px;
 }
 
+.cards.focus .card.active::before{
+  padding:12px;
+  opacity:1;
+}
+
+@media (max-width:600px){
+  .cards.focus .card.active{
+    width:92%;
+  }
+}
 
