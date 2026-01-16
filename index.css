@@ -109,7 +109,7 @@ h1 {
 
 .images{
   display:block;
-  width:100%;
+  width:50%;
   height:140px;
   object-fit:cover;
   object-position:center;
