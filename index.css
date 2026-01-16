@@ -14,29 +14,27 @@ h1 {
   letter-spacing: 0.3px;
 }
 
-.cards {
-  display: flex;
-  gap: 22px;
-  justify-content: center;
-  flex-wrap: wrap;
+.cards{
+  display:flex;
+  gap:22px;
+  justify-content:center;
+  flex-wrap:wrap;
+  align-items:flex-start;
 }
 
-.card {
-  width: 320px;
-  text-decoration: none;
-  color: inherit;
-
-  background: rgba(255, 255, 255, 0.80);
-  border-radius: 16px;
-  padding: 16px 16px 0;
-  overflow: hidden;
-
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
-
-  position: relative;
-  transform: translateY(0);
-  transition: transform 160ms ease, box-shadow 160ms ease;
+.card{
+  width:320px;
+  text-decoration:none;
+  color:inherit;
+  background:rgba(255,255,255,0.88);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 12px 30px rgba(0,0,0,0.10);
+  position:relative;
+  transform:translateY(0);
+  transition:transform 160ms ease,box-shadow 160ms ease;
+  display:block;
 }
 
 .card::before {
@@ -95,32 +93,29 @@ h1 {
 }
 
 .card h3 {
-  margin: 0 0 12px;
-  text-align: center;
-  font-size: 22px;
+  margin:14px 14px 10px;
+  text-align:center;
+  font-size:22px;
 }
 
 .images {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-
-  border: 1px solid rgba(0,0,0,0.10);
+  display:block;
+  width:calc(100% - 28px);
+  margin:0 14px 12px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.10);
+  height:220px;
+  object-fit:cover;
+  object-position:center;
 }
 
 .infoBar {
-  margin-top: 14px;
-  background: rgba(17, 17, 17, 0.92);
-  color: #fff;
-
-  border-top-left-radius: 14px;
-  border-top-right-radius: 14px;
-
-  overflow: hidden;
-  height: 0px;
-
-  transition: height 220ms ease;
+  margin-top:0;
+  background:rgba(17,17,17,0.92);
+  color:#fff;
+  overflow:hidden;
+  height:0px;
+  transition:height 240ms ease;
 }
 
 .infoInner {
@@ -139,3 +134,4 @@ h1 {
   opacity: 0.92;
 }
 }
+

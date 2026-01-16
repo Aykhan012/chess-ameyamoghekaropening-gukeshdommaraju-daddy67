@@ -1,44 +1,50 @@
-(function () {
-  const cards = document.querySelectorAll(".card");
+(() => {
+  const cards = Array.from(document.querySelectorAll(".card"));
+  let openCard = null;
 
-  function setAccent(card) {
+  const setAccent = (card) => {
     const accent = card.getAttribute("data-accent") || "120,120,255";
     card.style.setProperty("--accent", accent);
-  }
+  };
 
-  function openBar(card) {
+  const getParts = (card) => {
     const bar = card.querySelector(".infoBar");
     const inner = card.querySelector(".infoInner");
+    return { bar, inner };
+  };
+
+  const open = (card) => {
+    const { bar, inner } = getParts(card);
     if (!bar || !inner) return;
 
-    const target = inner.scrollHeight;
-    bar.style.height = target + "px";
-  }
+    if (openCard && openCard !== card) close(openCard);
 
-  function closeBar(card) {
-    const bar = card.querySelector(".infoBar");
+    bar.style.height = inner.scrollHeight + "px";
+    openCard = card;
+  };
+
+  const close = (card) => {
+    const { bar } = getParts(card);
     if (!bar) return;
 
     bar.style.height = "0px";
-  }
+    if (openCard === card) openCard = null;
+  };
 
   cards.forEach((card) => {
     setAccent(card);
 
-    card.addEventListener("mouseenter", () => openBar(card));
-    card.addEventListener("mouseleave", () => closeBar(card));
+    card.addEventListener("mouseenter", () => open(card));
+    card.addEventListener("mouseleave", () => close(card));
 
-    card.addEventListener("focus", () => openBar(card));
-    card.addEventListener("blur", () => closeBar(card));
+    card.addEventListener("focusin", () => open(card));
+    card.addEventListener("focusout", () => close(card));
   });
 
   window.addEventListener("resize", () => {
-    cards.forEach((card) => {
-      const bar = card.querySelector(".infoBar");
-      if (!bar) return;
-
-      const current = parseInt(bar.style.height || "0", 10);
-      if (current > 0) openBar(card);
-    });
+    if (!openCard) return;
+    const { bar, inner } = getParts(openCard);
+    if (!bar || !inner) return;
+    bar.style.height = inner.scrollHeight + "px";
   });
 })();
